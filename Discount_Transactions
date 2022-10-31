@@ -1,0 +1,69 @@
+
+def open_file():
+    global file
+    o = 0
+    while o == 0:
+        try:
+            o = open(file, 'r')
+            break
+        except FileNotFoundError:
+            file = input('enter a valid file')
+            continue
+    return o
+def read_file():
+    global op
+    r = op.readlines()
+    new = []
+    new2 = []
+    for line in r:
+        new.append(line)
+    for v in new:
+        for w in v:
+            new2.append(w)
+    return new, new2
+def menu():
+    global n1
+    global n2
+    count = 0
+    print('\n1 Display transaction ID and username First and Last name\n2 Display username First and Last name\ntotal amount to be paid before discount, \ntotal amount to be paid after discount,\nand the saved amount after discount.')
+    print('3 Quit/Exit')
+    new_list = []
+    option = 0
+    while option != '3' and count < 3:
+        option = input('\nPlease make a selection\n')
+        count += 1
+        if option == '3':
+            break
+        if option != '1' and option != '2':
+            print('Please make a valid selection')
+            count += 1
+            option = input()
+        if option == '1':
+            for i, k in enumerate(n1):
+                print()
+                for j, t in enumerate(k.split(' ')):
+                    if j != 3 and j != 4:
+                        print(t, end=' ')
+        if option == '2':
+            for b in n1:
+                b = b.split(' ')
+                print()
+                for c, d in enumerate(b):
+                    if c != 0:
+                        new_list.append(d)
+                        print(f'{d}     ', end='')
+                        if c == 3:
+                            new_list.append(d)
+                            r = float(d) *.4
+                            new_list.append(r)
+                            r = round(r,2)
+                            after = float(d) - float(r)
+                            new_list.append(after)
+                            after = round(after, 2)
+                            print('  {:<3}   {:<3}   {:<3}'.format(float(d), after, r))
+
+file = input('Enter file name')
+op = open_file()
+n1, n2 = read_file()
+menu()
+
